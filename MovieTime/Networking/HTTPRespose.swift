@@ -13,8 +13,10 @@ struct HTTPResponse<Model> {
         case noConection
         case badStructure
         case serviceError
+        case httpError(error: Swift.Error?)
+        case badBodyEncodable(error: Swift.Error)
     }
     let urlRequest: URLRequest?
-    let htttResponse: HTTPURLResponse?
+    let httpResponse: HTTPURLResponse?
     let result: Result<Model, Error>
 }

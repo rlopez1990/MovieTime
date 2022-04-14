@@ -9,14 +9,15 @@ import UIKit
 
 final class PosterTableViewCell: UITableViewCell, UITableViewCellRegistrable {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var genreLabel: UILabel!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
+    func setup(viewModel: PosterViewModel) {
+        movieTitleLabel.text = viewModel.name
+        yearLabel.text = viewModel.year
+        genreLabel.text = viewModel.gender
     }
     
 }
