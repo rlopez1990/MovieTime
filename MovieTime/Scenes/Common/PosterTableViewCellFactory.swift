@@ -21,6 +21,7 @@ final class PosterTableViewCellFactory {
             return .init()
         }
         cell.setup(viewModel: viewModel)
+        return cell
     }
 
 }
