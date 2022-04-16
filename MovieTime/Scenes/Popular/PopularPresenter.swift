@@ -9,7 +9,7 @@ import UIKit
 
 protocol PopularPresentable {
     func setupController()
-    func fetchData()
+    func fetchData(from searchType: SearchType, page: Int)
 }
 
 final class PopularPresenter {
@@ -32,21 +32,37 @@ extension PopularPresenter: PopularPresentable {
         view?.setupTable(viewModel: viewModel)
     }
 
-    func fetchData() {
-        dataService.
+    func fetchData(from searchType: SearchType, page: Int) {
+        dataService.getMovies(from: searchType, page: 1) { [weak self] result in
+            switch result {
+            case.success(let movieResponse):
+                self?.handleResponse(movieResponse: movieResponse)
+            case .failure:
+                // TODO: Show Error
+                print("SWW")
+            }
+        }
     }
 }
 
 // MARK: - Private methods
 private extension PopularPresenter {
+
+    func handleResponse(movieResponse: MoviesResponse) {
+        view?.dissmissLoader()
+        let items = viewModels(from: movieResponse.results)
+        view?.loadData(items: items)
+    }
+
     func viewModels(from resultResponse: [ResultResponse]) -> [PosterViewModel] {
-        return []
+        return resultResponse.map { mapViewModel(from: $0) }
     }
 
     func mapViewModel(from resultResponse: ResultResponse) -> PosterViewModel {
-        return .init(imageURL: URL(string: "")!,
-                     name: resultResponse.originalTitle,
-                     year: resultResponse.releaseDate,
-                     gender: resultResponse.originalLanguage)
+        return .init(imageURLPath: resultResponse.posterPath,
+                     name: resultResponse.title,
+                     date: resultResponse.releaseDate,
+                     language: resultResponse.originalLanguage)
     }
+
 }

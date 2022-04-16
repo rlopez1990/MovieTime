@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 final class URLSessionHTTPClient {
+
+    // MARK: - Private methods
+    private var baseURL: String
+    private let urlSession: URLSession
     private let bodyEncoder: JSONEncoder
     private let responseDecoder: JSONDecoder
-    private let urlSession: URLSession
-
-    var baseURL: String
 
     init(baseURL: String,
          urlSession: URLSession,
@@ -25,10 +27,14 @@ final class URLSessionHTTPClient {
     }
 }
 
+enum ImageQuality: String {
+    case lowQuality = "w200"
+}
+
 // MARK: - HTTPClient
 extension URLSessionHTTPClient: HTTPClient {
 
-    private struct Constants {
+    private enum Constants {
         static let httpSuccessfulCodeRange = 200...299
     }
 
@@ -36,7 +42,7 @@ extension URLSessionHTTPClient: HTTPClient {
                           completion: @escaping (HTTPResponse<Request.Response>) -> Void) where Request : HTTPRequestable {
         let responseBuilder = HTTPResponseBuilder<Request>()
         do {
-            let urlRequest = try createURLRequest(for: request)
+            let urlRequest = try createURLRequest(for: request, baseURL: baseURL)
             let task = createDataTask(responseBuilder: responseBuilder, urlRequest: urlRequest, completion: completion)
             task.resume()
         } catch {
@@ -47,15 +53,38 @@ extension URLSessionHTTPClient: HTTPClient {
             completion(responseBuilder.creteFailureResponse(error: decodeError))
         }
     }
+
+    func fetchImage(path: String, quality: ImageQuality, completion: @escaping (UIImage?) -> Void) {
+        let fullStringURL = baseURL + "/t/p/" + quality.rawValue + path
+        guard let imageURL = URL(string: fullStringURL) else {
+            completion(nil)
+            return
+        }
+        let task = urlSession.dataTask(with: imageURL) { data, response, error in
+            guard error == nil,
+                  let httpResponse = response as? HTTPURLResponse,
+                  Constants.httpSuccessfulCodeRange.contains(httpResponse.statusCode),
+                  let data = data,
+                  let image = UIImage(data: data) else {
+                completion(nil)
+                return
+            }
+            completion(image)
+        }
+        task.resume()
+    }
 }
 
 // MARK: - Private Methods
 private extension URLSessionHTTPClient {
     /// Creates `URLRequest` object with a request  (customizable object) as paramerter
     /// - Returns: A object which conforms the `HTTPRequestable` protocol
-    func createURLRequest<Request: HTTPRequestable>(for request: Request) throws -> URLRequest {
-        guard let components = URLComponents(string: baseURL + request.urlPath) else {
+    func createURLRequest<Request: HTTPRequestable>(for request: Request, baseURL: String) throws -> URLRequest {
+        guard var components = URLComponents(string: baseURL + request.urlPath) else {
             throw HTTPResponse<Request.Response>.Error.badStructure
+        }
+        if !request.queryItem.isEmpty {
+            components.queryItems = request.queryItem
         }
         var urlRequest = URLRequest(url: components.url!)
         urlRequest.httpMethod = request.method.rawValue

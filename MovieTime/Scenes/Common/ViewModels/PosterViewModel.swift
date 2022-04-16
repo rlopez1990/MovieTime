@@ -8,8 +8,8 @@
 import Foundation
 
 struct PosterViewModel {
-    let imageURL: URL
+    let imageURLPath: String
     let name: String
-    let year: String
-    let gender: String
+    let date: String
+    let language: String
 }

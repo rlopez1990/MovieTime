@@ -9,7 +9,6 @@ import Foundation
 
 struct ResultResponse: Decodable {
     let adult: Bool
-    let backdropPath: String
     let genreIDS: [Int]
     let id: Int
     let originalLanguage, originalTitle, overview: String
@@ -21,7 +20,6 @@ struct ResultResponse: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case adult
-        case backdropPath = "backdrop_path"
         case genreIDS = "genre_ids"
         case id
         case originalLanguage = "original_language"

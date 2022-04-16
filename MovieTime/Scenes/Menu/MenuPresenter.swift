@@ -12,7 +12,35 @@ protocol MenuPresentable {
 }
 
 final class MenuPresenter {
-    weak var view: MenuViewController?
+    struct Option {
+        let title: String
+        let image: UIImage?
+        let selectedImage: UIImage?
+        let viewController: UIViewController.Type
+        let searchType: SearchType
+    }
+
+    private weak var view: MenuViewController?
+    private let options = [Option(title: "Popular",
+                                  image: UIImage(systemName: "film"),
+                                  selectedImage: UIImage(systemName: "film.fill"),
+                                  viewController: PopularTableViewController.self,
+                                  searchType: .popular),
+                            Option(title: "Top Rated",
+                                   image: UIImage(systemName: "tv"),
+                                   selectedImage: UIImage(systemName: "tv.fill"),
+                                   viewController: PopularTableViewController.self,
+                                   searchType: .topRated),
+                            Option(title: "Upcoming",
+                                   image: UIImage(systemName: "play.tv"),
+                                   selectedImage: UIImage(systemName: "play.tv.fill"),
+                                   viewController: PopularTableViewController.self,
+                                   searchType: .upcoming),
+                            Option(title: "Search",
+                                   image: UIImage(systemName: "magnifyingglass"),
+                                   selectedImage: UIImage(systemName: "magnifyingglass.circle.fill"),
+                                   viewController: SearchMoviewTableViewController.self,
+                                   searchType: .popular)]
 
     init(view: MenuViewController?) {
         self.view = view
@@ -22,26 +50,27 @@ final class MenuPresenter {
 extension MenuPresenter: MenuPresentable {
     func setupController() {
         // Create Tab one
-        let tabOne = PopularTableViewController()
-        let tabOneBarItem = UITabBarItem(title: "Popular",
-                                         image: UIImage(systemName: "film"),
-                                         selectedImage: UIImage(systemName: "film.fill"))
-        tabOne.tabBarItem = tabOneBarItem
+        self.view?.viewControllers = options.map { viewController(for: $0) }
+    }
+}
 
-        // Create Tab two
-        let tabTwo = PopularTableViewController()
-        let tabTwoBarItem2 = UITabBarItem(title: "Top Rated",
-                                          image: UIImage(systemName: "tv"),
-                                          selectedImage: UIImage(systemName: "tv.fill"))
-        tabTwo.tabBarItem = tabTwoBarItem2
+// MARK: - Private methods
+private extension MenuPresenter {
 
-        // Create Tab two
-        let tabThree = PopularTableViewController()
-        let tabThreeItem = UITabBarItem(title: "Upcoming",
-                                    image: UIImage(systemName: "play.tv"),
-                                    selectedImage: UIImage(systemName: "play.tv.fill"))
-        tabThree.tabBarItem = tabThreeItem
+    func viewController(for option: Option) -> UIViewController {
+        let viewController = option.viewController.init()
 
-        self.view?.viewControllers = [tabOne, tabTwo, tabThree]
+        if let popular = viewController as? PopularTableViewController {
+            popular.searchType = option.searchType
+        }
+
+        viewController.tabBarItem = barItem(for: option)
+        return viewController
+    }
+
+    func barItem(for option: Option) -> UITabBarItem {
+        return .init(title: option.title,
+                     image: option.image,
+                     selectedImage: option.selectedImage)
     }
 }

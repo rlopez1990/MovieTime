@@ -14,8 +14,16 @@ protocol PopularMoviesDisplayable: AnyObject {
     func setupTable(viewModel: TableViewModel)
 }
 
+enum SearchType: String {
+    case popular = "movie/popular"
+    case topRated = "movie/top_rated"
+    case upcoming = "movie/upcoming"
+    case search = "search/moview"
+}
+
 final class PopularTableViewController: UITableViewController {
     // MARK: - Public properties
+    var searchType: SearchType = .popular
     lazy var presenter: PopularPresentable = PopularPresenter(view: self)
 
     // MARK: - Private properties
@@ -29,6 +37,7 @@ final class PopularTableViewController: UITableViewController {
         super.viewDidLoad()
         PosterTableViewCell.registerCell(into: tableView)
         presenter.setupController()
+        presenter.fetchData(from: searchType, page: 1)
     }
 
     // MARK: - Table view data source
@@ -49,11 +58,10 @@ extension PopularTableViewController: PopularMoviesDisplayable {
     func dissmissLoader() {}
 
     func loadData(items: [PosterViewModel]) {
-
+        elements = items
     }
 
     func setupTable(viewModel: TableViewModel) {
         tableView.setUp(model: viewModel)
     }
-
 }
