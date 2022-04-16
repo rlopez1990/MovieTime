@@ -16,7 +16,7 @@ final class PosterTableViewCellFactory {
         self.indexPath = indexPath
     }
 
-    func createCell(viewModel: PosterViewModel) -> UITableViewCell {
+    func posterTableViewCell(with viewModel: PosterViewModel) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PosterTableViewCell.cellIdentifier, for: indexPath) as? PosterTableViewCell else {
             return .init()
         }
@@ -24,4 +24,10 @@ final class PosterTableViewCellFactory {
         return cell
     }
 
+    func loaderTableViewCell() -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LoaderTableViewCell.cellIdentifier, for: indexPath) as? LoaderTableViewCell else {
+            return .init()
+        }
+        return cell
+    }
 }

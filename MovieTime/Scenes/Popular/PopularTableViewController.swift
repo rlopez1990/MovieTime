@@ -10,7 +10,8 @@ import UIKit
 protocol PopularMoviesDisplayable: AnyObject {
     func showLoader()
     func dissmissLoader()
-    func loadData(items: [PosterViewModel])
+    func loadFirstPage()
+    func loadNextPage(indexPath: [IndexPath])
     func setupTable(viewModel: TableViewModel)
 }
 
@@ -26,42 +27,59 @@ final class PopularTableViewController: UITableViewController {
     var searchType: SearchType = .popular
     lazy var presenter: PopularPresentable = PopularPresenter(view: self)
 
-    // MARK: - Private properties
-    private var elements: [PosterViewModel] = [] {
-       didSet {
-           tableView.reloadData()
-        }
-    }
+    // MARK: - Private properties}
 
     override func viewDidLoad() {
         super.viewDidLoad()
         PosterTableViewCell.registerCell(into: tableView)
+        LoaderTableViewCell.registerCell(into: tableView)
         presenter.setupController()
-        presenter.fetchData(from: searchType, page: 1)
+        presenter.fetchData(from: searchType)
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return elements.count
+        return presenter.total
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let factory = PosterTableViewCellFactory(tableView: tableView, indexPath: indexPath)
-        let cell = factory.createCell(viewModel: elements[indexPath.row])
-        return cell
+        if presenter.shouldShowLoadingCell(for: indexPath) {
+            return factory.loaderTableViewCell()
+        } else {
+            return factory.posterTableViewCell(with: presenter.elements[indexPath.row])
+        }
+
     }
+}
+
+// MARK: - Table view data source Prefetching
+extension PopularTableViewController: UITableViewDataSourcePrefetching {
+  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+      if indexPaths.contains(where: presenter.shouldShowLoadingCell(for:)) {
+          presenter.fetchData(from: searchType)
+      }
+  }
 }
 
 extension PopularTableViewController: PopularMoviesDisplayable {
     func showLoader() {}
     func dissmissLoader() {}
 
-    func loadData(items: [PosterViewModel]) {
-        elements = items
+    func loadFirstPage() {
+        //indicatorView.stopAnimating()
+        tableView.isHidden = false
+        tableView.reloadData()
+    }
+
+    func loadNextPage(indexPath: [IndexPath]) {
+        let cellIndexPaths = presenter.visibleIndexPaths(in: tableView, intersecting: indexPath)
+        tableView.reloadRows(at: cellIndexPaths, with: .automatic)
     }
 
     func setupTable(viewModel: TableViewModel) {
         tableView.setUp(model: viewModel)
+        tableView.prefetchDataSource = self
     }
 }

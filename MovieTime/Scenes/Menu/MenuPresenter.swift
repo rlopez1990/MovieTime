@@ -63,9 +63,9 @@ private extension MenuPresenter {
         if let popular = viewController as? PopularTableViewController {
             popular.searchType = option.searchType
         }
-
+        viewController.navigationItem.title = option.title
         viewController.tabBarItem = barItem(for: option)
-        return viewController
+        return UINavigationController(rootViewController: viewController)
     }
 
     func barItem(for option: Option) -> UITabBarItem {
