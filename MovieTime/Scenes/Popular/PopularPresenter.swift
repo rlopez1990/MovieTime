@@ -31,11 +31,6 @@ extension ListPressentable {
         return indexPath.row >= elements.count
     }
 
-    func visibleIndexPaths(in tableView: UITableView, intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
-        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
-        return Array(indexPathsIntersection)
-    }
 }
 
 final class PopularPresenter {
@@ -108,7 +103,7 @@ private extension PopularPresenter {
                      imageURLPath: resultResponse.posterPath ?? "",
                      name: resultResponse.title ?? "",
                      date: resultResponse.releaseDate ?? "",
-                     language: resultResponse.originalLanguage)
+                     language: "Language: \(resultResponse.originalLanguage)")
     }
 
     func calculateIndexPathsToReload(from newElementsTotal: Int) -> [IndexPath] {

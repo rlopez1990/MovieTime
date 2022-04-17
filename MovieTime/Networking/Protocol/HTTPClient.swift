@@ -12,5 +12,5 @@ protocol HTTPClient: AnyObject {
     func execute<Request: HTTPRequestable>(request: Request,
                                            completion: @escaping (HTTPResponse<Request.Response>) -> Void)
 
-    func fetchImage(path: String, quality: ImageQuality, completion: @escaping (UIImage?) -> Void)
+    func fetchImage(path: String, quality: ImageQualityType, completion: @escaping (UIImage?) -> Void)
 }

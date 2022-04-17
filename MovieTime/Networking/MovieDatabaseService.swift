@@ -7,18 +7,16 @@
 
 import Foundation
 
-struct MovieRequest: HTTPRequestable {
-    struct Body: Codable { }
-    typealias Response = MoviesResponse
+typealias MovieCompletion = (Result<MoviesResponse, Error>) -> Void
+typealias MovieDetailCompletion = (Result<MovieDetailResponse, Error>) -> Void
 
-    let urlPath: String
-    let method: HTTPMethod
-    let body: Body?
-    let queryItem: [URLQueryItem]
+enum SearchType: String {
+    case popular = "movie/popular"
+    case topRated = "movie/top_rated"
+    case upcoming = "movie/upcoming"
+    case movieDetail = "movie"
+    case search = "/movie"
 }
-
-typealias MoviewResult = Result<MoviesResponse, Error>
-typealias MoviewCompletion = (MoviewResult) -> Void
 
 final class MovieDatabaseService: MainThreadExecutable {
 
@@ -41,13 +39,18 @@ final class MovieDatabaseService: MainThreadExecutable {
         self.httpClient = httpClient
     }
 
-    func getMovies(from searchType: SearchType, page: Int, completion: @escaping MoviewCompletion) {
+    func getMovies(from searchType: SearchType, page: Int, completion: @escaping MovieCompletion) {
         let items = commonQueryItem(with: page)
         let request = createResquest(from: searchType, page: page,queryItem: items)
         getMovies(from: request, completion: completion)
     }
 
-    func searchMovies(word: String, page: Int, completion: @escaping MoviewCompletion) {
+    func getMovieDetails(movieIdentifier: String, completion: @escaping MovieDetailCompletion) {
+        let request = createMovieDetailRequest(for: movieIdentifier)
+        getMovies(from: request, completion: completion)
+    }
+
+    func searchMovies(word: String, page: Int, completion: @escaping MovieCompletion) {
         let request = createRequest(for: word, page: page)
         getMovies(from: request, completion: completion)
     }
@@ -55,7 +58,7 @@ final class MovieDatabaseService: MainThreadExecutable {
 
 private extension MovieDatabaseService {
 
-    func getMovies(from movieRequest: MovieRequest, completion: @escaping MoviewCompletion) {
+    func getMovies<Request: HTTPRequestable>(from movieRequest: Request, completion: @escaping (Result<Request.Response, Error>) -> Void) {
         let mainThread = completionOnMainThread(completion: completion)
         httpClient.execute(request: movieRequest) { response in
             switch response.result {
@@ -71,7 +74,6 @@ private extension MovieDatabaseService {
         let path = "/3/" + searchType.rawValue
         return .init(urlPath: path,
                      method: .get,
-                     body: nil,
                      queryItem: queryItem)
     }
 
@@ -83,8 +85,20 @@ private extension MovieDatabaseService {
                               queryItem: newQueryItems)
     }
 
+    func createMovieDetailRequest(for movieIdentifier: String) -> MovieDetailRequest {
+        let path = "/3/" + SearchType.movieDetail.rawValue + "/" + movieIdentifier
+
+        return .init(urlPath: path,
+                     method: .get,
+                     queryItem: [apiKeyQueryItem()])
+    }
+
     func commonQueryItem(with page: Int) -> [URLQueryItem] {
         return [URLQueryItem(name: "page", value: page.description),
-                URLQueryItem(name: "api_key", value: Constants.apiKey)]
+                apiKeyQueryItem()]
+    }
+
+    func apiKeyQueryItem() -> URLQueryItem {
+        return URLQueryItem(name: "api_key", value: Constants.apiKey)
     }
 }

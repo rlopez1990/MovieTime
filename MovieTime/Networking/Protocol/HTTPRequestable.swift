@@ -12,11 +12,9 @@ enum HTTPMethod: String {
 }
 
 protocol HTTPRequestable {
-    associatedtype Body: Decodable
     associatedtype Response: Decodable
     
     var urlPath: String { get }
     var method: HTTPMethod { get }
-    var body: Body? { get }
     var queryItem: [URLQueryItem] { get }
 }

@@ -7,12 +7,6 @@
 
 import UIKit
 
-enum SearchType: String {
-    case popular = "movie/popular"
-    case topRated = "movie/top_rated"
-    case upcoming = "movie/upcoming"
-    case search = "/movie"
-}
 
 protocol APISearchable {
     var searchType: SearchType { get }
@@ -59,7 +53,7 @@ final class PopularTableViewController: UITableViewController, APISearchable, Li
 extension PopularTableViewController: UITableViewDataSourcePrefetching {
   func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
       if indexPaths.contains(where: presenter.shouldShowLoadingCell(for:)) {
-          //presenter.fetchData(from: searchType)
+          presenter.fetchData(from: searchType)
       }
   }
 }

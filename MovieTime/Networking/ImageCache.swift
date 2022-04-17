@@ -32,13 +32,13 @@ final class ImageCache: MainThreadExecutable {
         self.httpClient = httpCliente
     }
 
-    func loadPosterImage(path: String, placeholderImage: UIImage, loadedImage: @escaping (UIImage) -> Void) {
-        let identifier =  ImageQuality.lowQuality.rawValue + path
+    func loadPosterImage(path: String, imageQualityType: ImageQualityType, placeholderImage: UIImage, loadedImage: @escaping (UIImage) -> Void) {
+        let identifier = imageQualityType.rawValue + path
         if let cachedImage = imageCache.object(forKey: identifier as NSString) {
             loadedImage(cachedImage)
         } else {
             let mainThread = completionOnMainThread(completion: loadedImage)
-            httpClient.fetchImage(path: path, quality: .lowQuality) { image in
+            httpClient.fetchImage(path: path, quality: imageQualityType) { image in
                 if let validImage = image {
                     mainThread(validImage)
                 } else {

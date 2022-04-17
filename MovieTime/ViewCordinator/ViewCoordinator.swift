@@ -14,7 +14,8 @@ struct ViewCoordinator {
     }
 
     func goDetails(for movieIdentifier: String, navigationController: UINavigationController?) {
-        let detailViewController = MoviewDetailViewController()
+        let detailViewController = MovieDetailViewController()
+        detailViewController.movieIdentifier = movieIdentifier
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

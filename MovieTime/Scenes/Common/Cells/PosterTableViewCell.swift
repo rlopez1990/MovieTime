@@ -22,6 +22,7 @@ final class PosterTableViewCell: UITableViewCell, UITableViewCellRegistrable {
         genreLabel.text = viewModel.language
         if let placeHolder =  UIImage(named: "PlaceHolder") {
             imageCache.loadPosterImage(path: viewModel.imageURLPath,
+                                       imageQualityType: .low,
                                        placeholderImage: placeHolder) { [weak self] image in
                 self?.posterImageView.image = image
             }

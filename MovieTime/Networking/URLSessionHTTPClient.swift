@@ -27,8 +27,9 @@ final class URLSessionHTTPClient {
     }
 }
 
-enum ImageQuality: String {
-    case lowQuality = "w200"
+enum ImageQualityType: String {
+    case low = "w200"
+    case hight = "w1280"
 }
 
 // MARK: - HTTPClient
@@ -54,7 +55,7 @@ extension URLSessionHTTPClient: HTTPClient {
         }
     }
 
-    func fetchImage(path: String, quality: ImageQuality, completion: @escaping (UIImage?) -> Void) {
+    func fetchImage(path: String, quality: ImageQualityType, completion: @escaping (UIImage?) -> Void) {
         let fullStringURL = baseURL + "/t/p/" + quality.rawValue + path
         guard let imageURL = URL(string: fullStringURL) else {
             completion(nil)

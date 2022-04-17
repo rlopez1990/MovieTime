@@ -39,7 +39,7 @@ final class MenuPresenter {
                             Option(title: "Search",
                                    image: UIImage(systemName: "magnifyingglass"),
                                    selectedImage: UIImage(systemName: "magnifyingglass.circle.fill"),
-                                   viewController: SearchMoviewTableViewController.self,
+                                   viewController: SearchMovieTableViewController.self,
                                    searchType: .popular)]
 
     init(view: MenuViewController?) {
