@@ -8,6 +8,7 @@
 import Foundation
 
 struct PosterViewModel {
+    let movieIdentifier: String
     let imageURLPath: String
     let name: String
     let date: String

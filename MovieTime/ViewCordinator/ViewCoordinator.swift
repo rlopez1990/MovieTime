@@ -12,4 +12,9 @@ struct ViewCoordinator {
     func mainViewController() -> UIViewController {
         return MenuViewController()
     }
+
+    func goDetails(for movieIdentifier: String, navigationController: UINavigationController?) {
+        let detailViewController = MoviewDetailViewController()
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
 }

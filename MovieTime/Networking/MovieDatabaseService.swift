@@ -42,7 +42,13 @@ final class MovieDatabaseService: MainThreadExecutable {
     }
 
     func getMovies(from searchType: SearchType, page: Int, completion: @escaping MoviewCompletion) {
-        let request = createResquest(from: searchType, page: page)
+        let items = commonQueryItem(with: page)
+        let request = createResquest(from: searchType, page: page,queryItem: items)
+        getMovies(from: request, completion: completion)
+    }
+
+    func searchMovies(word: String, page: Int, completion: @escaping MoviewCompletion) {
+        let request = createRequest(for: word, page: page)
         getMovies(from: request, completion: completion)
     }
 }
@@ -61,13 +67,20 @@ private extension MovieDatabaseService {
         }
     }
 
-    func createResquest(from searchType: SearchType, page: Int) -> MovieRequest {
+    func createResquest(from searchType: SearchType, page: Int, queryItem: [URLQueryItem]) -> MovieRequest {
         let path = "/3/" + searchType.rawValue
-        let items = commonQueryItem(with: page)
         return .init(urlPath: path,
                      method: .get,
                      body: nil,
-                     queryItem: items)
+                     queryItem: queryItem)
+    }
+
+    func createRequest(for word: String, page: Int) -> MovieRequest {
+        var newQueryItems = commonQueryItem(with: page)
+        newQueryItems.append(URLQueryItem(name: "query", value: word))
+        return createResquest(from: .search,
+                              page: page,
+                              queryItem: newQueryItems)
     }
 
     func commonQueryItem(with page: Int) -> [URLQueryItem] {

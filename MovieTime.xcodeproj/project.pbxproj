@@ -40,6 +40,8 @@
 		FF518AD5280B7B8C004123B0 /* MoviewDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AD4280B7B8C004123B0 /* MoviewDetailPresenter.swift */; };
 		FF518AD7280B7D08004123B0 /* SearchMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AD6280B7D08004123B0 /* SearchMoviePresenter.swift */; };
 		FF518ADA280B7FD1004123B0 /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AD9280B7FD1004123B0 /* ViewCoordinator.swift */; };
+		FF518ADD280BA7F5004123B0 /* ListPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518ADC280BA7F5004123B0 /* ListPresentable.swift */; };
+		FF518ADF280BA82E004123B0 /* ListMoviesDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518ADE280BA82E004123B0 /* ListMoviesDisplayable.swift */; };
 		FF7E3432280660B100723913 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3431280660B100723913 /* AppDelegate.swift */; };
 		FF7E3434280660B100723913 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3433280660B100723913 /* SceneDelegate.swift */; };
 		FF7E3436280660B100723913 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3435280660B100723913 /* ViewController.swift */; };
@@ -101,6 +103,8 @@
 		FF518AD4280B7B8C004123B0 /* MoviewDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviewDetailPresenter.swift; sourceTree = "<group>"; };
 		FF518AD6280B7D08004123B0 /* SearchMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviePresenter.swift; sourceTree = "<group>"; };
 		FF518AD9280B7FD1004123B0 /* ViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
+		FF518ADC280BA7F5004123B0 /* ListPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresentable.swift; sourceTree = "<group>"; };
+		FF518ADE280BA82E004123B0 /* ListMoviesDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMoviesDisplayable.swift; sourceTree = "<group>"; };
 		FF7E342E280660B100723913 /* MovieTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7E3431280660B100723913 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7E3433280660B100723913 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 		FF518A9D2808CBC9004123B0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FF518ADB280BA7D9004123B0 /* Protocol */,
 				FF518AA82808D597004123B0 /* ViewModels */,
 				FF518AA72808D588004123B0 /* Cells */,
 				FF518AA52808D4D1004123B0 /* PosterTableViewCellFactory.swift */,
@@ -278,6 +283,15 @@
 				FF518AD9280B7FD1004123B0 /* ViewCoordinator.swift */,
 			);
 			path = ViewCordinator;
+			sourceTree = "<group>";
+		};
+		FF518ADB280BA7D9004123B0 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				FF518ADC280BA7F5004123B0 /* ListPresentable.swift */,
+				FF518ADE280BA82E004123B0 /* ListMoviesDisplayable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		FF7E3425280660B100723913 = {
@@ -486,11 +500,13 @@
 				FF518AB32809D78B004123B0 /* MainThreadExecutable.swift in Sources */,
 				FF518A962808B0EC004123B0 /* LoadingView.swift in Sources */,
 				FF1E1AE22806FF72009DB102 /* HTTPResponseBuilder.swift in Sources */,
+				FF518ADF280BA82E004123B0 /* ListMoviesDisplayable.swift in Sources */,
 				FF518ACD280A64DD004123B0 /* LoaderTableViewCell.swift in Sources */,
 				FF518A912808AEC4004123B0 /* ResultResponse.swift in Sources */,
 				FF1E1AE0280682EF009DB102 /* URLSessionHTTPClient.swift in Sources */,
 				FF518AA42808CFE3004123B0 /* UITableViewCellRegistrable.swift in Sources */,
 				FF518ADA280B7FD1004123B0 /* ViewCoordinator.swift in Sources */,
+				FF518ADD280BA7F5004123B0 /* ListPresentable.swift in Sources */,
 				FF1E1ADE28067ED5009DB102 /* HTTPRespose.swift in Sources */,
 				FF518AAA2808D69F004123B0 /* PosterViewModel.swift in Sources */,
 				FF518AAF2808F681004123B0 /* TableViewModel.swift in Sources */,

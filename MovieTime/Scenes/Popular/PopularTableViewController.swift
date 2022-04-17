@@ -7,25 +7,23 @@
 
 import UIKit
 
-protocol PopularMoviesDisplayable: AnyObject {
-    func showLoader()
-    func dissmissLoader()
-    func loadFirstPage()
-    func loadNextPage(indexPath: [IndexPath])
-    func setupTable(viewModel: TableViewModel)
-}
-
 enum SearchType: String {
     case popular = "movie/popular"
     case topRated = "movie/top_rated"
     case upcoming = "movie/upcoming"
-    case search = "search/moview"
+    case search = "/movie"
 }
 
-final class PopularTableViewController: UITableViewController {
+protocol APISearchable {
+    var searchType: SearchType { get }
+}
+
+final class PopularTableViewController: UITableViewController, APISearchable, ListMoviesDisplayable {
+
     // MARK: - Public properties
     var searchType: SearchType = .popular
-    lazy var presenter: PopularPresentable = PopularPresenter(view: self)
+    lazy var presenter: CategoryListPresentable = PopularPresenter(view: self)
+    lazy var loader: LoadingViewProtocol = LoadingView()
 
     // MARK: - Private properties}
 
@@ -50,7 +48,10 @@ final class PopularTableViewController: UITableViewController {
         } else {
             return factory.posterTableViewCell(with: presenter.elements[indexPath.row])
         }
+    }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.gotToDetail(row: indexPath.row, navigationController: navigationController)
     }
 }
 
@@ -58,28 +59,8 @@ final class PopularTableViewController: UITableViewController {
 extension PopularTableViewController: UITableViewDataSourcePrefetching {
   func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
       if indexPaths.contains(where: presenter.shouldShowLoadingCell(for:)) {
-          presenter.fetchData(from: searchType)
+          //presenter.fetchData(from: searchType)
       }
   }
 }
 
-extension PopularTableViewController: PopularMoviesDisplayable {
-    func showLoader() {}
-    func dissmissLoader() {}
-
-    func loadFirstPage() {
-        //indicatorView.stopAnimating()
-        tableView.isHidden = false
-        tableView.reloadData()
-    }
-
-    func loadNextPage(indexPath: [IndexPath]) {
-        let cellIndexPaths = presenter.visibleIndexPaths(in: tableView, intersecting: indexPath)
-        tableView.reloadRows(at: cellIndexPaths, with: .automatic)
-    }
-
-    func setupTable(viewModel: TableViewModel) {
-        tableView.setUp(model: viewModel)
-        tableView.prefetchDataSource = self
-    }
-}

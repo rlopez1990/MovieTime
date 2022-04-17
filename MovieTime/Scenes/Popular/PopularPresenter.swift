@@ -7,34 +7,13 @@
 
 import UIKit
 
-protocol PopularPresentable {
-    var elements: [PosterViewModel] { get }
-    var total: Int { get }
+typealias CategoryListPresentable = CategoryFetchable & ListPressentable
 
-    func setupController()
+protocol CategoryFetchable {
     func fetchData(from searchType: SearchType)
-    func shouldShowLoadingCell(for indexPath: IndexPath) -> Bool
-    func visibleIndexPaths(in tableView: UITableView, intersecting indexPaths: [IndexPath]) -> [IndexPath]
 }
 
-final class PopularPresenter {
-    var elements: [PosterViewModel] = []
-    var total = 0
-
-    // MARK: - Private properties
-    private weak var view: PopularMoviesDisplayable?
-    private var dataService: MovieDatabaseService
-    private var page = 1
-    private var isFeching = false
-
-    init(view: PopularMoviesDisplayable?,
-         dataService: MovieDatabaseService = MovieDatabaseService()) {
-        self.view = view
-        self.dataService = dataService
-    }
-}
-
-extension PopularPresenter: PopularPresentable {
+extension ListPressentable {
     func setupController() {
         let viewModel = TableViewModel(allowSelection: true,
                                        cellHeight: UITableView.automaticDimension,
@@ -42,9 +21,50 @@ extension PopularPresenter: PopularPresentable {
         view?.setupTable(viewModel: viewModel)
     }
 
+    func gotToDetail(row: Int, navigationController: UINavigationController?) {
+        let movieIdentifier = elements[row].movieIdentifier
+        viewCoordinator.goDetails(for: movieIdentifier,
+                                     navigationController: navigationController)
+    }
+
+    func shouldShowLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= elements.count
+    }
+
+    func visibleIndexPaths(in tableView: UITableView, intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+}
+
+final class PopularPresenter {
+    weak var view: ListMoviesDisplayable?
+    var elements: [PosterViewModel] = []
+    let viewCoordinator: ViewCoordinator
+    var total = 0
+
+    // MARK: - Private properties
+    private var dataService: MovieDatabaseService
+    private var page = 1
+    private var isFeching = false
+
+    init(view: ListMoviesDisplayable?,
+         dataService: MovieDatabaseService = MovieDatabaseService(),
+         viewCoordinator: ViewCoordinator = ViewCoordinator()) {
+        self.view = view
+        self.dataService = dataService
+        self.viewCoordinator = viewCoordinator
+    }
+}
+
+extension PopularPresenter: CategoryListPresentable {
+
     func fetchData(from searchType: SearchType) {
         guard !isFeching else { return }
-
+        if page == 1 {
+            view?.showLoader()
+        }
         isFeching = true
         dataService.getMovies(from: searchType, page: page) { [weak self] result in
             switch result {
@@ -55,16 +75,6 @@ extension PopularPresenter: PopularPresentable {
                 print("SWW")
             }
         }
-    }
-
-    func shouldShowLoadingCell(for indexPath: IndexPath) -> Bool {
-      return indexPath.row >= elements.count
-    }
-
-    func visibleIndexPaths(in tableView: UITableView, intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
-        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
-        return Array(indexPathsIntersection)
     }
 }
 
@@ -82,7 +92,7 @@ private extension PopularPresenter {
         elements.append(contentsOf: items)
 
         if movieResponse.page > 1 {
-            let indexPaths = calculateIndexPathsToReload(from: items)
+            let indexPaths = calculateIndexPathsToReload(from: items.count)
             view?.loadNextPage(indexPath: indexPaths)
         } else {
             view?.loadFirstPage()
@@ -94,22 +104,22 @@ private extension PopularPresenter {
     }
 
     func mapViewModel(from resultResponse: ResultResponse) -> PosterViewModel {
-        return .init(imageURLPath: resultResponse.posterPath ?? "",
+        return .init(movieIdentifier: resultResponse.id.description,
+                     imageURLPath: resultResponse.posterPath ?? "",
                      name: resultResponse.title ?? "",
                      date: resultResponse.releaseDate ?? "",
                      language: resultResponse.originalLanguage)
     }
 
-    private func calculateIndexPathsToReload(from viewModels: [PosterViewModel]) -> [IndexPath] {
-      let startIndex = elements.count - viewModels.count
-      let endIndex = startIndex + viewModels.count
+    func calculateIndexPathsToReload(from newElementsTotal: Int) -> [IndexPath] {
+      let startIndex = elements.count - newElementsTotal
+      let endIndex = startIndex + newElementsTotal
       return (startIndex..<endIndex).map({ IndexPath(row: $0, section: 0) })
     }
 
-    private func updateTotalIfNeeded(totalResults: Int) {
+     func updateTotalIfNeeded(totalResults: Int) {
         if total == 0 {
             total = totalResults
         }
     }
-
 }
