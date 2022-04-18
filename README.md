@@ -33,6 +33,6 @@ In my experience a clean code is every code which can be easy to read to any dev
 
 
 ### Ways to improve this code
-One thing to improve the code is to use `Task` and `await` to use concurrency and remove the closures
+One thing to improve the code is to use `Task` and `await` to use concurrency and remove the closures and increaser the test covergae
 
 
