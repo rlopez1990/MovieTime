@@ -13,7 +13,7 @@ protocol CategoryFetchable {
     func fetchData(from searchType: SearchType)
 }
 
-final class PopularPresenter {
+final class ListPresenter {
     weak var view: ListMoviesDisplayable?
     var elements: [PosterViewModel] = []
     let viewCoordinator: ViewCoordinator
@@ -39,7 +39,7 @@ final class PopularPresenter {
     }
 }
 
-extension PopularPresenter: CategoryListPresentable {
+extension ListPresenter: CategoryListPresentable {
 
     func fetchData(from searchType: SearchType) {
         guard !isFeching else { return }
@@ -56,7 +56,7 @@ extension PopularPresenter: CategoryListPresentable {
 }
 
 // MARK: - Private methods
-private extension PopularPresenter {
+private extension ListPresenter {
 
     func loadOffLineData(searchType: SearchType) {
         guard let viewModels = try? codableStorage.retrieve("user.sessionId", as: [PosterViewModel].self) else {

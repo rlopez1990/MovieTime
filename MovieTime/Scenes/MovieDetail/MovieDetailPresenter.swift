@@ -54,7 +54,7 @@ private extension MovieDetailPresenter {
                      movieTitle: detailResponse.title,
                      rating: "(\(detailResponse.voteAverage)/10)",
                      overview: detailResponse.overview,
-                     productConpanies: "Companies: ")
+                     productConpanies: "Companies: \(companies)")
     }
 
     func handleError(_ error: Error) {

@@ -1,6 +1,23 @@
 # MovieTime
 A basic iOS application to visualize movies
 
+#### Arquitecrure of this project
+
+This project is using MVP as arquitectural Patter. In Order to avoid massive view controllers there are several classes locaded in 5 folder
+
+![image info](./Doc/1.png)
+
+- **Utils**: This folder containts extension of system classes like `UIAlertController`. In this folder is also the class related to a loader/spinner which will be designed to work on a `UIViewController`
+- **Domain Models:** This folder was created to have all classes from domain in this case the responses models from `themoviedb` API
+- **Networking:** All classes, structs, protocols and extensions related to netwrokig are located here. Even the reachability and image chache behaviours are located here.
+- **ViewCordinator:** This folder contains only one class which was created to manage the navigation. This is a basic app so far so it's not complex.
+- **Scene:** ViewController, Presenters and Cells
+
+##### Arquitecrure of this project
+
+ 
+
+
 
 #### FAQ
 ### What is the single-responsibility principle?

@@ -11,11 +11,11 @@ protocol APISearchable {
     var searchType: SearchType { get }
 }
 
-final class PopularTableViewController: UITableViewController, APISearchable, ListMoviesDisplayable {
+final class ListTableViewController: UITableViewController, APISearchable, ListMoviesDisplayable {
 
     // MARK: - Public properties
     var searchType: SearchType = .popular
-    lazy var presenter: CategoryListPresentable = PopularPresenter(view: self)
+    lazy var presenter: CategoryListPresentable = ListPresenter(view: self)
     lazy var loader: LoadingViewProtocol = LoadingView()
 
     // MARK: - Private properties}
@@ -49,7 +49,7 @@ final class PopularTableViewController: UITableViewController, APISearchable, Li
 }
 
 // MARK: - Table view data source Prefetching
-extension PopularTableViewController: UITableViewDataSourcePrefetching {
+extension ListTableViewController: UITableViewDataSourcePrefetching {
   func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
       if indexPaths.contains(where: presenter.shouldShowLoadingCell(for:)) {
           presenter.fetchData(from: searchType)

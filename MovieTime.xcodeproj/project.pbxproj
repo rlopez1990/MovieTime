@@ -18,9 +18,9 @@
 		FF518A912808AEC4004123B0 /* ResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A902808AEC4004123B0 /* ResultResponse.swift */; };
 		FF518A932808AF1C004123B0 /* MoviesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A922808AF1C004123B0 /* MoviesResponse.swift */; };
 		FF518A962808B0EC004123B0 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A952808B0EC004123B0 /* LoadingView.swift */; };
-		FF518A992808CA51004123B0 /* PopularTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A972808CA51004123B0 /* PopularTableViewController.swift */; };
-		FF518A9A2808CA51004123B0 /* PopularTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF518A982808CA51004123B0 /* PopularTableViewController.xib */; };
-		FF518A9C2808CA94004123B0 /* PopularPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A9B2808CA94004123B0 /* PopularPresenter.swift */; };
+		FF518A992808CA51004123B0 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A972808CA51004123B0 /* ListTableViewController.swift */; };
+		FF518A9A2808CA51004123B0 /* ListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF518A982808CA51004123B0 /* ListTableViewController.xib */; };
+		FF518A9C2808CA94004123B0 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A9B2808CA94004123B0 /* ListPresenter.swift */; };
 		FF518AA02808CC4E004123B0 /* PosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518A9E2808CC4E004123B0 /* PosterTableViewCell.swift */; };
 		FF518AA12808CC4E004123B0 /* PosterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF518A9F2808CC4E004123B0 /* PosterTableViewCell.xib */; };
 		FF518AA42808CFE3004123B0 /* UITableViewCellRegistrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AA32808CFE3004123B0 /* UITableViewCellRegistrable.swift */; };
@@ -88,9 +88,9 @@
 		FF518A902808AEC4004123B0 /* ResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultResponse.swift; sourceTree = "<group>"; };
 		FF518A922808AF1C004123B0 /* MoviesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesResponse.swift; sourceTree = "<group>"; };
 		FF518A952808B0EC004123B0 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		FF518A972808CA51004123B0 /* PopularTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTableViewController.swift; sourceTree = "<group>"; };
-		FF518A982808CA51004123B0 /* PopularTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopularTableViewController.xib; sourceTree = "<group>"; };
-		FF518A9B2808CA94004123B0 /* PopularPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularPresenter.swift; sourceTree = "<group>"; };
+		FF518A972808CA51004123B0 /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
+		FF518A982808CA51004123B0 /* ListTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewController.xib; sourceTree = "<group>"; };
+		FF518A9B2808CA94004123B0 /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
 		FF518A9E2808CC4E004123B0 /* PosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterTableViewCell.swift; sourceTree = "<group>"; };
 		FF518A9F2808CC4E004123B0 /* PosterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterTableViewCell.xib; sourceTree = "<group>"; };
 		FF518AA32808CFE3004123B0 /* UITableViewCellRegistrable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellRegistrable.swift; sourceTree = "<group>"; };
@@ -173,9 +173,9 @@
 		FF1E1AD1280666A2009DB102 /* Popular */ = {
 			isa = PBXGroup;
 			children = (
-				FF518A972808CA51004123B0 /* PopularTableViewController.swift */,
-				FF518A982808CA51004123B0 /* PopularTableViewController.xib */,
-				FF518A9B2808CA94004123B0 /* PopularPresenter.swift */,
+				FF518A972808CA51004123B0 /* ListTableViewController.swift */,
+				FF518A982808CA51004123B0 /* ListTableViewController.xib */,
+				FF518A9B2808CA94004123B0 /* ListPresenter.swift */,
 			);
 			path = Popular;
 			sourceTree = "<group>";
@@ -338,10 +338,10 @@
 		FF7E3430280660B100723913 /* MovieTime */ = {
 			isa = PBXGroup;
 			children = (
-				FF518AD8280B7FBA004123B0 /* ViewCordinator */,
 				FF518A942808B0AA004123B0 /* Utilts */,
 				FF518A8F2808AE85004123B0 /* Domain Models */,
 				FF1E1AD6280667D4009DB102 /* Networking */,
+				FF518AD8280B7FBA004123B0 /* ViewCordinator */,
 				FF1E1AD0280665E8009DB102 /* Scenes */,
 				FF7E3431280660B100723913 /* AppDelegate.swift */,
 				FF7E3433280660B100723913 /* SceneDelegate.swift */,
@@ -478,7 +478,7 @@
 				FF518AC62809DD97004123B0 /* SearchMovieTableViewController.xib in Resources */,
 				FF7E343E280660B200723913 /* LaunchScreen.storyboard in Resources */,
 				FF518ACE280A64DD004123B0 /* LoaderTableViewCell.xib in Resources */,
-				FF518A9A2808CA51004123B0 /* PopularTableViewController.xib in Resources */,
+				FF518A9A2808CA51004123B0 /* ListTableViewController.xib in Resources */,
 				FF7E343B280660B200723913 /* Assets.xcassets in Resources */,
 				FF518AA12808CC4E004123B0 /* PosterTableViewCell.xib in Resources */,
 				FF518A8B28085911004123B0 /* MenuViewController.xib in Resources */,
@@ -517,12 +517,12 @@
 				FF518A8E28085C8E004123B0 /* MenuPresenter.swift in Sources */,
 				FF518AA02808CC4E004123B0 /* PosterTableViewCell.swift in Sources */,
 				FF518AB12808F6F8004123B0 /* TableViewExtension.swift in Sources */,
-				FF518A992808CA51004123B0 /* PopularTableViewController.swift in Sources */,
+				FF518A992808CA51004123B0 /* ListTableViewController.swift in Sources */,
 				FF518AD5280B7B8C004123B0 /* MovieDetailPresenter.swift in Sources */,
 				FF1E1ADB28067D18009DB102 /* HTTPClient.swift in Sources */,
 				FF518AE9280CA903004123B0 /* UIAlertController.swift in Sources */,
 				FF518AD7280B7D08004123B0 /* SearchMoviePresenter.swift in Sources */,
-				FF518A9C2808CA94004123B0 /* PopularPresenter.swift in Sources */,
+				FF518A9C2808CA94004123B0 /* ListPresenter.swift in Sources */,
 				FF518AB32809D78B004123B0 /* MainThreadExecutable.swift in Sources */,
 				FF518A962808B0EC004123B0 /* LoadingView.swift in Sources */,
 				FF1E1AE22806FF72009DB102 /* HTTPResponseBuilder.swift in Sources */,

@@ -24,17 +24,17 @@ final class MenuPresenter {
     private let options = [Option(title: "Popular",
                                   image: UIImage(systemName: "film"),
                                   selectedImage: UIImage(systemName: "film.fill"),
-                                  viewController: PopularTableViewController.self,
+                                  viewController: ListTableViewController.self,
                                   searchType: .popular),
                             Option(title: "Top Rated",
                                    image: UIImage(systemName: "tv"),
                                    selectedImage: UIImage(systemName: "tv.fill"),
-                                   viewController: PopularTableViewController.self,
+                                   viewController: ListTableViewController.self,
                                    searchType: .topRated),
                             Option(title: "Upcoming",
                                    image: UIImage(systemName: "play.tv"),
                                    selectedImage: UIImage(systemName: "play.tv.fill"),
-                                   viewController: PopularTableViewController.self,
+                                   viewController: ListTableViewController.self,
                                    searchType: .upcoming),
                             Option(title: "Search",
                                    image: UIImage(systemName: "magnifyingglass"),
@@ -60,7 +60,7 @@ private extension MenuPresenter {
     func viewController(for option: Option) -> UIViewController {
         let viewController = option.viewController.init()
 
-        if let popular = viewController as? PopularTableViewController {
+        if let popular = viewController as? ListTableViewController {
             popular.searchType = option.searchType
         }
         viewController.navigationItem.title = option.title
