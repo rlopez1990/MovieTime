@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MenuConfigurable: AnyObject {
+    func updateTabBarController(wirh viewControllers: [UIViewController])
+}
+
 final class MenuViewController: UITabBarController {
 
     lazy var presenter: MenuPresentable = MenuPresenter(view: self)
@@ -14,5 +18,11 @@ final class MenuViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.setupController()
+    }
+}
+
+extension MenuViewController: MenuConfigurable {
+    func updateTabBarController(wirh viewControllers: [UIViewController]) {
+        self.viewControllers = viewControllers
     }
 }

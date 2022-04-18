@@ -20,7 +20,7 @@ final class MenuPresenter {
         let searchType: SearchType
     }
 
-    private weak var view: MenuViewController?
+    private weak var view: MenuConfigurable?
     private let options = [Option(title: "Popular",
                                   image: UIImage(systemName: "film"),
                                   selectedImage: UIImage(systemName: "film.fill"),
@@ -42,7 +42,7 @@ final class MenuPresenter {
                                    viewController: SearchMovieTableViewController.self,
                                    searchType: .popular)]
 
-    init(view: MenuViewController?) {
+    init(view: MenuConfigurable?) {
         self.view = view
     }
 }
@@ -50,7 +50,7 @@ final class MenuPresenter {
 extension MenuPresenter: MenuPresentable {
     func setupController() {
         // Create Tab one
-        self.view?.viewControllers = options.map { viewController(for: $0) }
+        self.view?.updateTabBarController(wirh: options.map { viewController(for: $0) })
     }
 }
 

@@ -8,9 +8,9 @@
 import UIKit
 
 struct ViewCoordinator {
-    private var reachability: NetworkReachability
+    private var reachability: Conectable
 
-    init(reachability: NetworkReachability = NetworkReachability()) {
+    init(reachability: Conectable = NetworkReachability()) {
         self.reachability = reachability
     }
 

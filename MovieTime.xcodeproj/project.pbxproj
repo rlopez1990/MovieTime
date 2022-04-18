@@ -49,12 +49,20 @@
 		FF518AE9280CA903004123B0 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AE8280CA903004123B0 /* UIAlertController.swift */; };
 		FF518AEB280CE3C1004123B0 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AEA280CE3C1004123B0 /* Reachability.swift */; };
 		FF518AED280CEA3E004123B0 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AEC280CEA3E004123B0 /* CodableStorage.swift */; };
+		FF518AEF280D15EB004123B0 /* ViewCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AEE280D15EB004123B0 /* ViewCoordinatorTests.swift */; };
+		FF518AF2280D1715004123B0 /* NavigationControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AF1280D1715004123B0 /* NavigationControllerMock.swift */; };
+		FF518AF4280D1831004123B0 /* NetworkReachabilityMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AF3280D1831004123B0 /* NetworkReachabilityMock.swift */; };
+		FF518AF8280D194E004123B0 /* MenuPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AF7280D194E004123B0 /* MenuPresenterTests.swift */; };
+		FF518AFA280D1B61004123B0 /* PosterTableViewCellFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AF9280D1B61004123B0 /* PosterTableViewCellFactoryTests.swift */; };
+		FF518AFC280D2111004123B0 /* MenuViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AFB280D2111004123B0 /* MenuViewControllerMock.swift */; };
+		FF518B00280D23D8004123B0 /* HTTPResponseBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AFF280D23D8004123B0 /* HTTPResponseBuilderTests.swift */; };
+		FF518B02280D97E1004123B0 /* ImageCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518B01280D97E1004123B0 /* ImageCacheTests.swift */; };
+		FF518B04280D980A004123B0 /* HTTPClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518B03280D980A004123B0 /* HTTPClientMock.swift */; };
 		FF7E3432280660B100723913 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3431280660B100723913 /* AppDelegate.swift */; };
 		FF7E3434280660B100723913 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3433280660B100723913 /* SceneDelegate.swift */; };
 		FF7E3436280660B100723913 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3435280660B100723913 /* ViewController.swift */; };
 		FF7E343B280660B200723913 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF7E343A280660B200723913 /* Assets.xcassets */; };
 		FF7E343E280660B200723913 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7E343C280660B200723913 /* LaunchScreen.storyboard */; };
-		FF7E3449280660B300723913 /* MovieTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3448280660B300723913 /* MovieTimeTests.swift */; };
 		FF7E3453280660B300723913 /* MovieTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3452280660B300723913 /* MovieTimeUITests.swift */; };
 		FF7E3455280660B300723913 /* MovieTimeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3454280660B300723913 /* MovieTimeUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
@@ -119,6 +127,15 @@
 		FF518AE8280CA903004123B0 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		FF518AEA280CE3C1004123B0 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		FF518AEC280CEA3E004123B0 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
+		FF518AEE280D15EB004123B0 /* ViewCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinatorTests.swift; sourceTree = "<group>"; };
+		FF518AF1280D1715004123B0 /* NavigationControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerMock.swift; sourceTree = "<group>"; };
+		FF518AF3280D1831004123B0 /* NetworkReachabilityMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityMock.swift; sourceTree = "<group>"; };
+		FF518AF7280D194E004123B0 /* MenuPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenterTests.swift; sourceTree = "<group>"; };
+		FF518AF9280D1B61004123B0 /* PosterTableViewCellFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterTableViewCellFactoryTests.swift; sourceTree = "<group>"; };
+		FF518AFB280D2111004123B0 /* MenuViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewControllerMock.swift; sourceTree = "<group>"; };
+		FF518AFF280D23D8004123B0 /* HTTPResponseBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponseBuilderTests.swift; sourceTree = "<group>"; };
+		FF518B01280D97E1004123B0 /* ImageCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheTests.swift; sourceTree = "<group>"; };
+		FF518B03280D980A004123B0 /* HTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientMock.swift; sourceTree = "<group>"; };
 		FF7E342E280660B100723913 /* MovieTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7E3431280660B100723913 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7E3433280660B100723913 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,7 +144,6 @@
 		FF7E343D280660B200723913 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF7E343F280660B200723913 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF7E3444280660B300723913 /* MovieTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF7E3448280660B300723913 /* MovieTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTimeTests.swift; sourceTree = "<group>"; };
 		FF7E344E280660B300723913 /* MovieTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7E3452280660B300723913 /* MovieTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTimeUITests.swift; sourceTree = "<group>"; };
 		FF7E3454280660B300723913 /* MovieTimeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTimeUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -315,6 +331,17 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		FF518AF0280D16F4004123B0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				FF518AF1280D1715004123B0 /* NavigationControllerMock.swift */,
+				FF518AF3280D1831004123B0 /* NetworkReachabilityMock.swift */,
+				FF518AFB280D2111004123B0 /* MenuViewControllerMock.swift */,
+				FF518B03280D980A004123B0 /* HTTPClientMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		FF7E3425280660B100723913 = {
 			isa = PBXGroup;
 			children = (
@@ -356,7 +383,12 @@
 		FF7E3447280660B300723913 /* MovieTimeTests */ = {
 			isa = PBXGroup;
 			children = (
-				FF7E3448280660B300723913 /* MovieTimeTests.swift */,
+				FF518AF0280D16F4004123B0 /* Mocks */,
+				FF518AEE280D15EB004123B0 /* ViewCoordinatorTests.swift */,
+				FF518AF7280D194E004123B0 /* MenuPresenterTests.swift */,
+				FF518AF9280D1B61004123B0 /* PosterTableViewCellFactoryTests.swift */,
+				FF518AFF280D23D8004123B0 /* HTTPResponseBuilderTests.swift */,
+				FF518B01280D97E1004123B0 /* ImageCacheTests.swift */,
 			);
 			path = MovieTimeTests;
 			sourceTree = "<group>";
@@ -552,7 +584,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF7E3449280660B300723913 /* MovieTimeTests.swift in Sources */,
+				FF518AEF280D15EB004123B0 /* ViewCoordinatorTests.swift in Sources */,
+				FF518AF2280D1715004123B0 /* NavigationControllerMock.swift in Sources */,
+				FF518B02280D97E1004123B0 /* ImageCacheTests.swift in Sources */,
+				FF518AFA280D1B61004123B0 /* PosterTableViewCellFactoryTests.swift in Sources */,
+				FF518B00280D23D8004123B0 /* HTTPResponseBuilderTests.swift in Sources */,
+				FF518AF4280D1831004123B0 /* NetworkReachabilityMock.swift in Sources */,
+				FF518AF8280D194E004123B0 /* MenuPresenterTests.swift in Sources */,
+				FF518AFC280D2111004123B0 /* MenuViewControllerMock.swift in Sources */,
+				FF518B04280D980A004123B0 /* HTTPClientMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

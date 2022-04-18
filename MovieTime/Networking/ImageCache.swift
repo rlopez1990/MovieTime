@@ -40,6 +40,7 @@ final class ImageCache: MainThreadExecutable {
             let mainThread = completionOnMainThread(completion: loadedImage)
             httpClient.fetchImage(path: path, quality: imageQualityType) { image in
                 if let validImage = image {
+                    self.imageCache.setObject(validImage, forKey: identifier as NSString)
                     mainThread(validImage)
                 } else {
                     mainThread(placeholderImage)

@@ -8,7 +8,11 @@
 import Foundation
 import SystemConfiguration
 
-final class NetworkReachability: ObservableObject {
+protocol Conectable {
+    func checkConnection() -> Bool
+}
+
+final class NetworkReachability: ObservableObject, Conectable {
     @Published private(set) var reachable: Bool = false
     private let reachability = SCNetworkReachabilityCreateWithName(nil, "www.designcode.io")
 
