@@ -163,21 +163,21 @@
 			children = (
 				FF518A9D2808CBC9004123B0 /* Common */,
 				FF518A8C28085C71004123B0 /* Menu */,
-				FF1E1AD1280666A2009DB102 /* Popular */,
+				FF1E1AD1280666A2009DB102 /* List */,
 				FF518ACF280B5B40004123B0 /* MovieDetail */,
 				FF518AC22809DD73004123B0 /* Search */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		FF1E1AD1280666A2009DB102 /* Popular */ = {
+		FF1E1AD1280666A2009DB102 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				FF518A972808CA51004123B0 /* ListTableViewController.swift */,
 				FF518A982808CA51004123B0 /* ListTableViewController.xib */,
 				FF518A9B2808CA94004123B0 /* ListPresenter.swift */,
 			);
-			path = Popular;
+			path = List;
 			sourceTree = "<group>";
 		};
 		FF1E1AD6280667D4009DB102 /* Networking */ = {

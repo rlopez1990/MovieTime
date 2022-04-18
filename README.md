@@ -11,11 +11,14 @@ This project is using MVP as arquitectural Patter. In Order to avoid massive vie
 - **Domain Models:** This folder was created to have all classes from domain in this case the responses models from `themoviedb` API
 - **Networking:** All classes, structs, protocols and extensions related to netwrokig are located here. Even the reachability and image chache behaviours are located here.
 - **ViewCordinator:** This folder contains only one class which was created to manage the navigation. This is a basic app so far so it's not complex.
-- **Scene:** ViewController, Presenters and Cells
+- **Scene:** ViewController, Presenters and Cells are located in this folder
 
-##### Arquitecrure of this project
-
+##### ViewController Organization
+![image info](./Doc/2.png)
+Every `viewController` has its own presenter all the logic, business rules and networking cases are managed by the presenter. Into presenters initializations I'm injecting the dependencies in order to make the unit test easier to be created. 
+The comunication between presenter and viewControllers is  through protocols and only the needed methods are exposed. In order to avoid retain cycle the viewController reference is `weak`  
  
+![image info](./Doc/3.png)
 
 
 
@@ -28,5 +31,8 @@ The five principles intended to make software designs more understable, flexible
 ### What is clean code
 In my experience a clean code is every code which can be easy to read to any developer. With this in mind the code will be easy to modify. Each developer has ther own writing style, and the level of reding depende on our experience. We all want to write a simple, beautiful and concise code.
 
+
+### Ways to improve this code
+One thing to improve the code is to use `Task` and `await` to use concurrency and remove the closures
 
 
