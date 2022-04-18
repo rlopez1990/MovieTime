@@ -47,6 +47,8 @@
 		FF518AE5280BD3B0004123B0 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AE4280BD3B0004123B0 /* Requests.swift */; };
 		FF518AE7280CA819004123B0 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AE6280CA819004123B0 /* AlertViewModel.swift */; };
 		FF518AE9280CA903004123B0 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AE8280CA903004123B0 /* UIAlertController.swift */; };
+		FF518AEB280CE3C1004123B0 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AEA280CE3C1004123B0 /* Reachability.swift */; };
+		FF518AED280CEA3E004123B0 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF518AEC280CEA3E004123B0 /* CodableStorage.swift */; };
 		FF7E3432280660B100723913 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3431280660B100723913 /* AppDelegate.swift */; };
 		FF7E3434280660B100723913 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3433280660B100723913 /* SceneDelegate.swift */; };
 		FF7E3436280660B100723913 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E3435280660B100723913 /* ViewController.swift */; };
@@ -115,6 +117,8 @@
 		FF518AE4280BD3B0004123B0 /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		FF518AE6280CA819004123B0 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		FF518AE8280CA903004123B0 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
+		FF518AEA280CE3C1004123B0 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		FF518AEC280CEA3E004123B0 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		FF7E342E280660B100723913 /* MovieTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7E3431280660B100723913 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7E3433280660B100723913 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 				FF518AB42809D7C5004123B0 /* ImageCache.swift */,
 				FF518AAB2808E392004123B0 /* MovieDatabaseService.swift */,
 				FF518AE4280BD3B0004123B0 /* Requests.swift */,
+				FF518AEA280CE3C1004123B0 /* Reachability.swift */,
+				FF518AEC280CEA3E004123B0 /* CodableStorage.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -502,10 +508,12 @@
 			files = (
 				FF7E3436280660B100723913 /* ViewController.swift in Sources */,
 				FF518AD2280B7B23004123B0 /* MovieDetailViewController.swift in Sources */,
+				FF518AEB280CE3C1004123B0 /* Reachability.swift in Sources */,
 				FF518AE3280BC9A6004123B0 /* MovieDetailResponse.swift in Sources */,
 				FF518AE7280CA819004123B0 /* AlertViewModel.swift in Sources */,
 				FF518A8A28085911004123B0 /* MenuViewController.swift in Sources */,
 				FF7E3432280660B100723913 /* AppDelegate.swift in Sources */,
+				FF518AED280CEA3E004123B0 /* CodableStorage.swift in Sources */,
 				FF518A8E28085C8E004123B0 /* MenuPresenter.swift in Sources */,
 				FF518AA02808CC4E004123B0 /* PosterTableViewCell.swift in Sources */,
 				FF518AB12808F6F8004123B0 /* TableViewExtension.swift in Sources */,

@@ -8,14 +8,36 @@
 import UIKit
 
 struct ViewCoordinator {
+    private var reachability: NetworkReachability
+
+    init(reachability: NetworkReachability = NetworkReachability()) {
+        self.reachability = reachability
+    }
 
     func mainViewController() -> UIViewController {
         return MenuViewController()
     }
 
     func goDetails(for movieIdentifier: String, navigationController: UINavigationController?) {
-        let detailViewController = MovieDetailViewController()
-        detailViewController.movieIdentifier = movieIdentifier
-        navigationController?.pushViewController(detailViewController, animated: true)
+        if reachability.checkConnection() {
+            let detailViewController = MovieDetailViewController()
+            detailViewController.movieIdentifier = movieIdentifier
+            navigationController?.pushViewController(detailViewController, animated: true)
+        } else {
+            let alertController = createNoConnectionAlertController()
+            navigationController?.present(alertController, animated: true)
+        }
+    }
+}
+
+private extension ViewCoordinator {
+    func createNoConnectionAlertController() -> UIAlertController {
+        let viewModel = AlertViewModel(title: "No internet connection",
+                                       message: "It's required internet to go to the next page",
+                                       primaryButton: "Ok")
+
+        let alertController = UIAlertController(viewModel: viewModel)
+        alertController.setUp(actionTitle: viewModel.primaryButton)
+        return alertController
     }
 }

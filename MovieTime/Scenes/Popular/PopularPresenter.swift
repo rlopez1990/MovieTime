@@ -13,26 +13,6 @@ protocol CategoryFetchable {
     func fetchData(from searchType: SearchType)
 }
 
-extension ListPressentable {
-    func setupController() {
-        let viewModel = TableViewModel(allowSelection: true,
-                                       cellHeight: UITableView.automaticDimension,
-                                       separatorStyle: .singleLine)
-        view?.setupTable(viewModel: viewModel)
-    }
-
-    func gotToDetail(row: Int, navigationController: UINavigationController?) {
-        let movieIdentifier = elements[row].movieIdentifier
-        viewCoordinator.goDetails(for: movieIdentifier,
-                                     navigationController: navigationController)
-    }
-
-    func shouldShowLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row >= elements.count
-    }
-
-}
-
 final class PopularPresenter {
     weak var view: ListMoviesDisplayable?
     var elements: [PosterViewModel] = []
@@ -43,13 +23,19 @@ final class PopularPresenter {
     private var dataService: MovieDatabaseService
     private var page = 1
     private var isFeching = false
+    private var reachability: NetworkReachability
+    private var codableStorage: CodableStorage
 
     init(view: ListMoviesDisplayable?,
          dataService: MovieDatabaseService = MovieDatabaseService(),
-         viewCoordinator: ViewCoordinator = ViewCoordinator()) {
+         viewCoordinator: ViewCoordinator = ViewCoordinator(),
+         reachability: NetworkReachability = NetworkReachability(),
+         codableStorage: CodableStorage = CodableStorage()) {
         self.view = view
         self.dataService = dataService
         self.viewCoordinator = viewCoordinator
+        self.reachability = reachability
+        self.codableStorage = codableStorage
     }
 }
 
@@ -60,14 +46,11 @@ extension PopularPresenter: CategoryListPresentable {
         if page == 1 {
             view?.showLoader()
         }
-        isFeching = true
-        dataService.getMovies(from: searchType, page: page) { [weak self] result in
-            switch result {
-            case.success(let movieResponse):
-                self?.handleResponse(movieResponse: movieResponse)
-            case .failure(let error):
-                self?.handleError(error)
-            }
+
+        if reachability.checkConnection() {
+            makeRequest(searchType: searchType)
+        } else {
+            loadOffLineData(searchType: searchType)
         }
     }
 }
@@ -75,7 +58,30 @@ extension PopularPresenter: CategoryListPresentable {
 // MARK: - Private methods
 private extension PopularPresenter {
 
-    func handleResponse(movieResponse: MoviesResponse) {
+    func loadOffLineData(searchType: SearchType) {
+        guard let viewModels = try? codableStorage.retrieve("user.sessionId", as: [PosterViewModel].self) else {
+            return
+        }
+        isFeching = false
+
+        view?.dissmissLoader()
+        total = viewModels.count
+        elements = viewModels
+        view?.loadFirstPage()
+    }
+
+    func makeRequest(searchType: SearchType) {
+        dataService.getMovies(from: searchType, page: page) { [weak self] result in
+            switch result {
+            case.success(let movieResponse):
+                self?.handleResponse(movieResponse: movieResponse, searchType: searchType)
+            case .failure(let error):
+                self?.handleError(error)
+            }
+        }
+    }
+
+    func handleResponse(movieResponse: MoviesResponse, searchType: SearchType) {
         view?.dissmissLoader()
 
         page += 1
@@ -89,6 +95,12 @@ private extension PopularPresenter {
             let indexPaths = calculateIndexPathsToReload(from: items.count)
             view?.loadNextPage(indexPath: indexPaths)
         } else {
+            // For offline mode, the app saves only the firt page
+            do {
+                try codableStorage.store(items, as: "user.sessionId")
+            } catch let error {
+                print(error.localizedDescription)
+            }
             view?.loadFirstPage()
         }
     }

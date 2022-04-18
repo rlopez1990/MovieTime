@@ -19,3 +19,21 @@ protocol ListPressentable {
     func shouldShowLoadingCell(for indexPath: IndexPath) -> Bool
 }
 
+extension ListPressentable {
+    func setupController() {
+        let viewModel = TableViewModel(allowSelection: true,
+                                       cellHeight: UITableView.automaticDimension,
+                                       separatorStyle: .singleLine)
+        view?.setupTable(viewModel: viewModel)
+    }
+
+    func gotToDetail(row: Int, navigationController: UINavigationController?) {
+        let movieIdentifier = elements[row].movieIdentifier
+        viewCoordinator.goDetails(for: movieIdentifier,
+                                     navigationController: navigationController)
+    }
+
+    func shouldShowLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= elements.count
+    }
+}

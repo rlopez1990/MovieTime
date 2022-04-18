@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PosterViewModel {
+struct PosterViewModel: Codable {
     let movieIdentifier: String
     let imageURLPath: String
     let name: String

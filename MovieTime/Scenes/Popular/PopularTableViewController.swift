@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 protocol APISearchable {
     var searchType: SearchType { get }
 }
