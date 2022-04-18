@@ -15,7 +15,7 @@ enum SearchType: String {
     case topRated = "movie/top_rated"
     case upcoming = "movie/upcoming"
     case movieDetail = "movie"
-    case search = "/movie"
+    case search = "search/movie"
 }
 
 final class MovieDatabaseService: MainThreadExecutable {
@@ -79,7 +79,10 @@ private extension MovieDatabaseService {
 
     func createRequest(for word: String, page: Int) -> MovieRequest {
         var newQueryItems = commonQueryItem(with: page)
-        newQueryItems.append(URLQueryItem(name: "query", value: word))
+        newQueryItems.append(contentsOf: [URLQueryItem(name: "query", value: word),
+                                          URLQueryItem(name: "language", value: "en-US"),
+                                          URLQueryItem(name: "include_adult", value: "false")])
+        //(URLQueryItem(name: "query", value: word))
         return createResquest(from: .search,
                               page: page,
                               queryItem: newQueryItems)

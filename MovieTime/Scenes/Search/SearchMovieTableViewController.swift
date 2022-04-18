@@ -15,11 +15,19 @@ final class SearchMovieTableViewController: UITableViewController, ListMoviesDis
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        PosterTableViewCell.registerCell(into: tableView)
+        LoaderTableViewCell.registerCell(into: tableView)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Movies"
         navigationItem.searchController = searchController
+        presenter.setupController()
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchController.searchBar.becomeFirstResponder()
     }
 
     // MARK: - Table view data source
@@ -29,24 +37,30 @@ final class SearchMovieTableViewController: UITableViewController, ListMoviesDis
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let factory = PosterTableViewCellFactory(tableView: tableView, indexPath: indexPath)
-        return factory.posterTableViewCell(with: presenter.elements[indexPath.row])
+        if presenter.shouldShowLoadingCell(for: indexPath) {
+            return factory.loaderTableViewCell()
+        } else {
+            return factory.posterTableViewCell(with: presenter.elements[indexPath.row])
+        }
     }
 }
 
 // MARK: - Table view data source Prefetching
 extension SearchMovieTableViewController: UITableViewDataSourcePrefetching {
-  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-      if indexPaths.contains(where: presenter.shouldShowLoadingCell(for:)) {
-          //presenter.fetchData
-      }
-  }
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: presenter.shouldShowLoadingCell(for:)) {
+            presenter.fetchData(with: nil)
+        }
+    }
 }
 
 extension SearchMovieTableViewController: UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-    //let searchBar = searchController.searchBar
-   // let category = Candy.Category(rawValue:
-   //   searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex])
-    //filterContentForSearchText(searchBar.text!, category: category)
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text,
+              text != presenter.currentWord,
+              !text.isEmpty else {
+            return
+        }
+        presenter.fetchData(with: text)
   }
 }

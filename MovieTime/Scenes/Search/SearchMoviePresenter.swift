@@ -8,15 +8,16 @@
 import UIKit
 
 protocol SearchPresentable: ListPressentable {
-    func fetchData(with word: String)
+    func fetchData(with word: String?)
 }
 
 final class SearchMoviePresenter {
     var elements: [PosterViewModel] = []
     var total = 0
+    var totalPages = 1
     var page = 1
     var viewCoordinator: ViewCoordinator
-
+    var currentWord = ""
 
     // MARK: - Private properties
     internal weak var view: ListMoviesDisplayable?
@@ -34,17 +35,25 @@ final class SearchMoviePresenter {
 
 extension SearchMoviePresenter: SearchPresentable {
 
-    func fetchData(with word: String) {
+    func fetchData(with word: String?) {
         guard !isFeching else { return }
 
+        if word == nil && page >= totalPages {
+            return
+        }
+
+        if page == 1 {
+            view?.showLoader()
+        }
+
+        let validWord = word ?? currentWord
         isFeching = true
-        dataService.searchMovies(word: word, page: page) { [weak self] result in
+        dataService.searchMovies(word: validWord, page: page) { [weak self] result in
             switch result {
             case.success(let movieResponse):
-                self?.handleResponse(movieResponse: movieResponse)
-            case .failure:
-                // TODO: Show Error
-                print("SWW")
+                self?.handleResponse(movieResponse: movieResponse, newWord: word)
+            case .failure(let error):
+                self?.handleError(error)
             }
         }
     }
@@ -66,20 +75,28 @@ extension SearchMoviePresenter: SearchPresentable {
 
 private extension SearchMoviePresenter {
 
-    func handleResponse(movieResponse: MoviesResponse) {
+    func handleResponse(movieResponse: MoviesResponse, newWord: String?) {
         view?.dissmissLoader()
-
-        page += 1
         isFeching = false
+        totalPages = movieResponse.totalPages
         updateTotalIfNeeded(totalResults: movieResponse.totalResults)
-
         let items = viewModels(from: movieResponse.results)
-        elements.append(contentsOf: items)
+
+        if newWord == nil {
+            page += 1
+            elements.append(contentsOf: items)
+        } else {
+            page = 1
+            elements = items
+        }
 
         if movieResponse.page > 1 {
             let indexPaths = calculateIndexPathsToReload(from: items.count)
             view?.loadNextPage(indexPath: indexPaths)
         } else {
+            if let validWord = newWord {
+                currentWord = validWord
+            }
             view?.loadFirstPage()
         }
     }
@@ -106,5 +123,13 @@ private extension SearchMoviePresenter {
         if total == 0 {
             total = totalResults
         }
+    }
+
+    func handleError(_ error: Error) {
+        isFeching = false
+        view?.showError(with: .init(title: "Error",
+                                    message: error.localizedDescription,
+                                    primaryButton: "Ok"))
+
     }
 }

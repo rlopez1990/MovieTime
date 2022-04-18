@@ -65,9 +65,8 @@ extension PopularPresenter: CategoryListPresentable {
             switch result {
             case.success(let movieResponse):
                 self?.handleResponse(movieResponse: movieResponse)
-            case .failure:
-                // TODO: Show Error
-                print("SWW")
+            case .failure(let error):
+                self?.handleError(error)
             }
         }
     }
@@ -116,5 +115,13 @@ private extension PopularPresenter {
         if total == 0 {
             total = totalResults
         }
+    }
+
+    func handleError(_ error: Error) {
+        isFeching = false
+        view?.showError(with: .init(title: "Error",
+                                    message: error.localizedDescription,
+                                    primaryButton: "Ok"))
+
     }
 }
