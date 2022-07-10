@@ -10,8 +10,8 @@ import UIKit
 extension UITableView {
     func setUp(model: TableViewModel) {
         self.allowsSelection = model.allowSelection
-        self.rowHeight = 90.0//model.cellHeight
-        //self.estimatedRowHeight = 90.0
+        self.rowHeight = 90//UITableView.automaticDimension
+        self.estimatedRowHeight = UITableView.automaticDimension
         self.separatorStyle = model.separatorStyle
     }
 }
